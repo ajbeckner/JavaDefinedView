@@ -1,22 +1,23 @@
 package com.ajbecknerapps.javadefinedview;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     //DEFINE CONSTANTS BELOW
-
+    private Context mContext;
     //IDS
     private static final int ID_BUTTON = 1;
     private static final int ID_EDIT_TEXT = 2;
@@ -27,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = this;
         super.onCreate(savedInstanceState);
 
-        myLayout = new RelativeLayout(this);
-        buttonName = new Button(this);
-        editTextName = new EditText(this);
+        myLayout = new RelativeLayout(mContext);
+        buttonName = new Button(mContext);
+        editTextName = new EditText(mContext);
 
         //DIMENSIONS
         //this code converts dip to px for parameter value
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         //myButton.setBackgroundColor(Color.YELLOW);
         buttonName.setId(ID_BUTTON);
         buttonName.setId(ID_EDIT_TEXT);
-        buttonName.setText("Do Stuff");
+        buttonName.setText("Make 4 Buttons");
         editTextName.setWidth(WIDTH_EDITEXT_PIXELS);
         editTextName.setText("4");
 
@@ -58,9 +60,18 @@ public class MainActivity extends AppCompatActivity {
                 int number = Integer.parseInt(text);
                 if (number <= 5) {
                     for (int i = 0; i < number; i++) {
-                        makeButton();
+                        makeButton(mContext);
                     }
                 }
+            }
+        });
+
+        //todo: fix to make text update button
+        editTextName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Log.d("Test","messageee");
+                return false;
             }
         });
 
@@ -106,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void makeButton(){
+    private void makeButton(Context context){
         Log.d("Test", "in makeButton()");
-        Button dynamicButton = new Button(getApplicationContext());
+        Button dynamicButton = new Button(context);
         dynamicButton.setText("Button");
         RelativeLayout.LayoutParams dynamicButtonParams = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
