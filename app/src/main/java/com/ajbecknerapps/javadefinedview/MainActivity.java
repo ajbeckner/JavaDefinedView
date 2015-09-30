@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         buttonName = new Button(this);
         editTextName = new EditText(this);
 
-        //DIMENSIONS
+        //DIMENSIONS = BALLS
         //this code converts dip to px for parameter value
         final int MARGIN_EDITTEXT_DIP = 8;
         final int MARGIN_EDITTEXT_PIXELS = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,MARGIN_EDITTEXT_DIP,getResources().getDisplayMetrics());
